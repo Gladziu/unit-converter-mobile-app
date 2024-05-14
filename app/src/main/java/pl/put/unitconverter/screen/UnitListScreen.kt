@@ -10,13 +10,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import pl.put.unitconverter.util.UnitDetail
+import pl.put.unitconverter.util.MeasurementUnit
 
 @Composable
-fun UnitListScreen(units: List<UnitDetail>, onItemClick: (Int) -> Unit) {
+fun UnitListScreen(onItemClick: (Int) -> Unit) {
     Box() {
         LazyColumn(Modifier.fillMaxWidth()) {
-            itemsIndexed(units) { index, unit ->
+            itemsIndexed(MeasurementUnit.measurementUnits) { index, unit ->
                 Text(
                     text = unit.title,
                     modifier = Modifier

@@ -30,7 +30,6 @@ import pl.put.unitconverter.util.UnitDetail
 fun ConversionScreen(selectedUnit: UnitDetail) {
     var inputValue by remember { mutableStateOf("") }
     var selectedFromUnit by remember { mutableStateOf("Wejsciowa jednostka") }
-    //var selectedToUnit by remember { mutableStateOf("") }
 
     var isExpanded by remember {
         mutableStateOf(false)
@@ -83,7 +82,7 @@ fun ConversionScreen(selectedUnit: UnitDetail) {
             }
         }
 
-        Text(text = "Wyprowadzona wartość: " + inputValue + " " + selectedFromUnit)
+        Text(text = "Wyprowadzona wartość: $inputValue $selectedFromUnit")
 
         val result = UnitConverter.convertUnits(inputValue, selectedUnit, selectedFromUnit)
         Text(text = "Wynik: $result")
