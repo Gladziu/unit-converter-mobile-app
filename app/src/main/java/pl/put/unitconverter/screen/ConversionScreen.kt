@@ -24,16 +24,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import pl.put.unitconverter.UnitConverter
 import pl.put.unitconverter.util.UnitDetail
+import pl.put.unitconverter.validator.InputHandler
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConversionScreen(selectedUnit: UnitDetail) {
     var inputValue by remember { mutableStateOf("") }
     var selectedFromUnit by remember { mutableStateOf("Wejsciowa jednostka") }
-
-    var isExpanded by remember {
-        mutableStateOf(false)
-    }
+    var isExpanded by remember { mutableStateOf(false) }
 
     Column(
         modifier = Modifier
@@ -48,7 +46,9 @@ fun ConversionScreen(selectedUnit: UnitDetail) {
 
         OutlinedTextField(
             value = inputValue,
-            onValueChange = { inputValue = it },
+            onValueChange = { newValue ->
+                inputValue = InputHandler.validateInputValue(selectedUnit, newValue) ?: inputValue
+            },
             label = { Text("Podaj wartosc") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
             modifier = Modifier.fillMaxWidth()
@@ -69,11 +69,11 @@ fun ConversionScreen(selectedUnit: UnitDetail) {
                 expanded = isExpanded,
                 onDismissRequest = { isExpanded = false }
             ) {
-                selectedUnit.measurement.forEach() { unit: Map.Entry<String, Double> ->
+                selectedUnit.unitConversionFactors.forEach() { unit ->
                     DropdownMenuItem(
-                        text = { Text(text = unit.key) },
+                        text = { Text(text = unit.name) },
                         onClick = {
-                            selectedFromUnit = unit.key
+                            selectedFromUnit = unit.name
                             isExpanded = false
                         },
                         contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
@@ -81,10 +81,12 @@ fun ConversionScreen(selectedUnit: UnitDetail) {
                 }
             }
         }
-
         Text(text = "Wyprowadzona wartość: $inputValue $selectedFromUnit")
 
         val result = UnitConverter.convertUnits(inputValue, selectedUnit, selectedFromUnit)
-        Text(text = "Wynik: $result")
+        result.forEach { (key, value) ->
+            Text(text = "$key: $value")
+        }
+
     }
 }

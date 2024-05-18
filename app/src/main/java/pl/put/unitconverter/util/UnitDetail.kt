@@ -1,6 +1,6 @@
 package pl.put.unitconverter.util
 
-interface UnitDetail{
+interface UnitDetail {
     val title: String
-    val measurement: Map<String, Double>
+    val unitConversionFactors: List<UnitFactor>
 }
