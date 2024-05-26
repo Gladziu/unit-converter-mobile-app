@@ -4,6 +4,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import pl.put.unitconverter.screen.ConversionScreen
+import pl.put.unitconverter.screen.FavouriteUnitListScreen
 import pl.put.unitconverter.screen.MainScreen
 import pl.put.unitconverter.screen.UnitListScreen
 import pl.put.unitconverter.util.MeasurementUnit
@@ -19,6 +20,11 @@ fun AppNavigation(navController: NavHostController) {
         }
         composable("unitList") {
             UnitListScreen() { selectedUnitIndex ->
+                navController.navigate("conversion/$selectedUnitIndex")
+            }
+        }
+        composable("favouriteUnitList") {
+            FavouriteUnitListScreen() { selectedUnitIndex ->
                 navController.navigate("conversion/$selectedUnitIndex")
             }
         }

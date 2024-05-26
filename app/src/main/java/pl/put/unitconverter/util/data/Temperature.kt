@@ -9,6 +9,8 @@ object Temperature : UnitDetail {
     const val FAHRENHEIT = "Fahrenheit"
 
     override val title = "Temperatura"
+    override val wikiUrl = "https://pl.wikipedia.org/wiki/Temperatura"
+    override var isLiked = false
     override val unitConversionFactors = listOf(
         UnitFactor(KELVIN, 1.0, 1.0),
         UnitFactor(CELSIUS, 1.0, 1.0),

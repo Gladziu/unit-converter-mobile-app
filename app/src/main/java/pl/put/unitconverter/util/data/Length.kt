@@ -19,6 +19,8 @@ object Length : UnitDetail {
     const val LIGHT_YEAR = "rok świetlny"
 
     override val title = "Długość"
+    override val wikiUrl = "https://pl.wikipedia.org/wiki/Metr"
+    override var isLiked = false
     override val unitConversionFactors = listOf(
         UnitFactor(NANOMETER, 0.000000001, 1000000000.0),
         UnitFactor(MICROMETER, 0.000001, 1000000.0),

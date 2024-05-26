@@ -14,7 +14,10 @@ object Mass : UnitDetail {
     const val TONNE = "tona"
     const val OUNCE = "uncja"
     const val POUND = "funt"
+
     override val title = "Masa"
+    override val wikiUrl = "https://pl.wikipedia.org/wiki/Masa_(fizyka)"
+    override var isLiked = false
     override val unitConversionFactors = listOf(
         UnitFactor(PICOGRAM, 1e-15, 1000000000000000.0),
         UnitFactor(NANOGRAM, 1e-12, 1000000000000.0),

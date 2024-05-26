@@ -39,7 +39,14 @@ fun MainScreen(navController: NavController) {
     val selectedTabIndex = remember { derivedStateOf { pagerState.currentPage } }
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text(text = "Kalkulator jednostek") }) }
+        topBar = {
+            TopAppBar(title = {
+                Text(
+                    text = "Kalkulator jednostek",
+                    style = MaterialTheme.typography.titleLarge
+                )
+            })
+        }
     ) {
         Column(
             modifier = Modifier
@@ -57,7 +64,7 @@ fun MainScreen(navController: NavController) {
                         unselectedContentColor = MaterialTheme.colorScheme.outline,
                         onClick = {
                             scope.launch {
-                                pagerState.animateScrollToPage(currentTab.ordinal)
+                                pagerState.animateScrollToPage(index)
                             }
                         },
                         text = { Text(text = currentTab.text) },
@@ -78,8 +85,13 @@ fun MainScreen(navController: NavController) {
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                if(pagerState.currentPage == 0) {
+                if (pagerState.currentPage == 0) {
                     UnitListScreen() { selectedUnitIndex ->
+                        navController.navigate("conversion/$selectedUnitIndex")
+                    }
+                }
+                if (pagerState.currentPage == 1) {
+                    FavouriteUnitListScreen() { selectedUnitIndex ->
                         navController.navigate("conversion/$selectedUnitIndex")
                     }
                 }
@@ -94,18 +106,13 @@ enum class HomeTabs(
     val text: String
 ) {
     UnitList(
-        unselectedIcon = Icons.Outlined.List,
-        selectedIcon = Icons.Filled.List,
+        unselectedIcon = Icons.Outlined.Home,
+        selectedIcon = Icons.Filled.Home,
         text = "Jednostki"
     ),
     Favourite(
         unselectedIcon = Icons.Outlined.FavoriteBorder,
         selectedIcon = Icons.Filled.Favorite,
         text = "Ulubione"
-    ),
-    Tab3(
-        unselectedIcon = Icons.Outlined.Home,
-        selectedIcon = Icons.Filled.Home,
-        text = "Tab3"
     )
 }
